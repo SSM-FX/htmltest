@@ -138,7 +138,7 @@
         </div>
         
         <div class="message">
-            <span class="highlight-text" id="message-text">加载中...</span>
+            <span class="highlight-text" id="message-text"></span>
         </div>
 
         <div class="footer">
@@ -157,14 +157,16 @@
     </div>
 
     <script>
+        // 获取当前日期和时间
         const currentDate = new Date();
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
         document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
 
+        // 直接获取句子
         fetch('https://ssm-fx.github.io/htmltest/')
-            。then(response => response.text())
-            。then(data => {
+            .then(response => response.text())
+            .then(data => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data, 'text/html');
                 const sentence = doc.querySelector('body').textContent.trim(); // 获取句子
