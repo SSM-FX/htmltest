@@ -165,21 +165,22 @@
 
         // 直接获取句子
         fetch('https://ssm-fx.github.io/htmltest/')
-            .then(response => response.text())
-            .then(data => {
+            。then(response => {
+                if (!response.ok) {
+                    throw new Error('网络响应错误');
+                }
+                return response.text();
+            })
+            。then(data => {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(data, 'text/html');
-                const sentence = doc.querySelector('body').textContent.trim(); // 获取句子
+                const sentence = doc.body.textContent.trim(); // 获取句子
                 document.getElementById('message-text').innerText = sentence || '未获取到句子';
             })
-            .catch(error => {
+            。catch(error => {
                 console.error('获取句子失败:', error);
                 document.getElementById('message-text').innerText = '加载失败';
             });
 
         function showNoComment() {
-            document.getElementById('comment-count').innerText = '无';
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('comment-count').innerText = '
