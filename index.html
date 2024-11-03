@@ -138,7 +138,7 @@
         </div>
         
         <div class="message">
-            <span class="highlight-text">我一直都在你身边 ，一直都在。</span>
+            <span class="highlight-text" id="dynamic-message">我一直都在你身边 ，一直都在。</span>
         </div>
 
         <div class="footer">
@@ -166,7 +166,8 @@
             try {
                 const response = await fetch('https://v1.hitokoto.cn/?encode=text');
                 const text = await response.text();
-                document.getElementById('comment-count').innerText = text;
+                document.getElementById('dynamic-message').innerText = text; // 更新消息内容
+                document.getElementById('comment-count').innerText = ' 评论'; // 还原为“评论”
             } catch (error) {
                 console.error('获取句子失败:', error);
                 document.getElementById('comment-count').innerText = '无';
