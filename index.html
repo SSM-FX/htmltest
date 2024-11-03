@@ -35,10 +35,9 @@
             border-bottom: 1px solid #e0e0e0;
         }
 
-        /* 心形头像 */
         .heart-icon {
-            width: 23px; /* 修改这里 */
-            height: 23px; /* 修改这里 */
+            width: 23px;
+            height: 23px;
             position: relative;
             animation: heartbeat 1s infinite;
             background-color: #ff6b6b;
@@ -50,24 +49,23 @@
         .heart-icon::before,
         .heart-icon::after {
             content: "";
-            width: 23px; /* 修改这里 */
-            height: 23px; /* 修改这里 */
+            width: 23px;
+            height: 23px;
             border-radius: 50%;
             background-color: #ff6b6b;
             position: absolute;
         }
 
         .heart-icon::before {
-            top: -11.5px; /* 修改这里 */
+            top: -11.5px;
             left: 0;
         }
 
         .heart-icon::after {
-            left: 11.5px; /* 修改这里 */
+            left: 11.5px;
             top: 0;
         }
 
-        /* 心跳动画 */
         @keyframes heartbeat {
             0%, 20%, 50%, 80%, 100% {
                 transform: scale(1) rotate(-45deg);
@@ -93,10 +91,14 @@
         .message {
             padding: 15px;
             border-bottom: 1px solid #e0e0e0;
-            font-size: 1.5em;
-            font-weight: bold;
             text-align: center;
             color: #333;
+        }
+
+        .highlight-text {
+            font-size: 1em; /* 调整为更小的字体 */
+            font-weight: normal;
+            color: black;
         }
 
         .footer {
@@ -127,21 +129,18 @@
 </head>
 <body>
     <div class="container">
-        <!-- 头部信息 -->
         <div class="header">
             <div class="heart-icon"></div>
             <div>
-                <div class="title">YQ全防官方主频道</div>
-                <div class="subtitle">13463 位订阅者</div>
+                <div class="title">孤魔</div>
+                <div class="subtitle">SSM-FX</div>
             </div>
         </div>
         
-        <!-- 消息内容（替换成文字“你好”） -->
         <div class="message">
-            你好
+            <span class="highlight-text">我一直都在你身边 ，一直都在。</span>
         </div>
 
-        <!-- 日期 -->
         <div class="footer">
             <span id="current-date"></span>
             <div class="icons">
@@ -151,15 +150,13 @@
             </div>
         </div>
 
-        <!-- 评论 -->
         <div class="comments" onclick="showNoComment()">
             <span>💬 发送一条评论</span>
-            <span id="comment-count">7 评论</span>
+            <span id="comment-count"> 评论</span>
         </div>
     </div>
 
     <script>
-        // 获取当前日期和时间
         const currentDate = new Date();
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
