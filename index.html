@@ -150,7 +150,7 @@
             </div>
         </div>
 
-        <div class="comments" onclick="showNoComment()">
+        <div class="comments" onclick="alert('无')">
             <span>💬 评论</span>
         </div>
     </div>
@@ -174,13 +174,6 @@
 
         // 定时每5秒刷新一次内容
         setInterval(fetchComment, 5000);
-        
-        // 页面加载时首次调用
-        fetchComment();
-
-        function showNoComment() {
-            alert('无');
-        }
     </script>
 </body>
 </html>
