@@ -150,7 +150,7 @@
             </div>
         </div>
 
-        <div class="comments">
+        <div class="comments" onclick="showNoComment()">
             <span>💬 评论</span>
         </div>
     </div>
@@ -177,6 +177,10 @@
         
         // 页面加载时首次调用
         fetchComment();
+
+        function showNoComment() {
+            alert('无');
+        }
     </script>
 </body>
 </html>
