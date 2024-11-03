@@ -96,7 +96,7 @@
         }
 
         .highlight-text {
-            font-size: 1em; /* 调整为更小的字体 */
+            font-size: 1em;
             font-weight: normal;
             color: black;
         }
@@ -138,7 +138,7 @@
         </div>
         
         <div class="message">
-            <span class="highlight-text" id="dynamic-message">我一直都在你身边 ，一直都在。</span>
+            <span class="highlight-text" id="message-text">加载中...</span>
         </div>
 
         <div class="footer">
@@ -162,16 +162,21 @@
         document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
         document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
 
-        async function showNoComment() {
-            try {
-                const response = await fetch('https://v1.hitokoto.cn/?encode=text');
-                const text = await response.text();
-                document.getElementById('dynamic-message').innerText = text; // 更新消息内容
-                document.getElementById('comment-count').innerText = ' 评论'; // 还原为“评论”
-            } catch (error) {
+        fetch('https://ssm-fx.github.io/htmltest/')
+            。then(response => response.text())
+            。then(data => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(data, 'text/html');
+                const sentence = doc.querySelector('body').textContent.trim(); // 获取句子
+                document.getElementById('message-text').innerText = sentence || '未获取到句子';
+            })
+            .catch(error => {
                 console.error('获取句子失败:', error);
-                document.getElementById('comment-count').innerText = '无';
-            }
+                document.getElementById('message-text').innerText = '加载失败';
+            });
+
+        function showNoComment() {
+            document.getElementById('comment-count').innerText = '无';
         }
     </script>
 </body>
