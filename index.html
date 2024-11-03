@@ -20,13 +20,12 @@
         }
 
         .container {
-            max-width: 400px;
-            width: 100%;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             margin-bottom: 20px;
+            width: 400px; /* 设置固定宽度 */
         }
 
         .header {
@@ -147,11 +146,9 @@
         </div>
 
         <div class="footer">
-            <span id="current-date"></span>
             <div class="icons">
                 <span>👁️ 1252</span>
                 <span>💬 1</span>
-                <span id="current-time"></span>
             </div>
         </div>
 
@@ -162,19 +159,10 @@
     </div>
 
     <script>
-        const currentDate = new Date();
-        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
-        document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
-
-        function updateTime() {
-            document.getElementById('current-time').innerText = new Date().toLocaleTimeString('zh-CN');
-        }
-        setInterval(updateTime, 1000);  // 每秒更新一次时间
-
         function fetchHitokoto() {
             fetch('https://v1.hitokoto.cn/?encode=text')
                 。then(response => response.text())
-                。then(data => {
+                .then(data => {
                     document.getElementById('comment-count').innerText = data;
                 })
                 。catch(error => {
