@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仿频道消息界面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+        }
+
+        .container {
+            width: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        /* 心形头像 */
+        .heart-icon {
+            width: 23px;
+            height: 23px;
+            position: relative;
+            animation: heartbeat 1s infinite;
+            background-color: #ff6b6b;
+            margin-right: 10px;
+            display: inline-block;
+            transform: rotate(-45deg);
+        }
+
+        .heart-icon::before,
+        .heart-icon::after {
+            content: "";
+            width: 23px;
+            height: 23px;
+            border-radius: 50%;
+            background-color: #ff6b6b;
+            position: absolute;
+        }
+
+        .heart-icon::before {
+            top: -11.5px;
+            left: 0;
+        }
+
+        .heart-icon::after {
+            left: 11.5px;
+            top: 0;
+        }
+
+        /* 心跳动画 */
+        @keyframes heartbeat {
+            0%, 20%, 50%, 80%, 100% {
+                transform: scale(1) rotate(-45deg);
+            }
+            40% {
+                transform: scale(1.2) rotate(-45deg);
+            }
+            60% {
+                transform: scale(1.1) rotate(-45deg);
+            }
+        }
+
+        .header .title {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .header .subtitle {
+            font-size: 0.9em;
+            color: gray;
+        }
+
+        .message {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+        }
+
+        .footer {
+            padding: 10px 15px;
+            font-size: 0.9em;
+            color: gray;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer .icons span {
+            margin-right: 10px;
+        }
+
+        .comments {
+            padding: 10px 15px;
+            color: #007aff;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .comments span {
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部信息 -->
+        <div class="header">
+            <div class="heart-icon"></div>
+            <div>
+                <div class="title">YQ全防官方主频道</div>
+                <div class="subtitle">13463 位订阅者</div>
+            </div>
+        </div>
+        
+        <!-- 消息内容（动态获取“一言”） -->
+        <div class="message" id="yiyan-message">
+            加载中...
+        </div>
+
+        <!-- 日期 -->
+        <div class="footer">
+            <span id="current-date"></span>
+            <div class="icons">
+                <span>👁️ 1252</span>
+                <span>💬 1</span>
+                <span id="current-time"></span>
+            </div>
+        </div>
+
+        <!-- 评论 -->
+        <div class="comments" onclick="showNoComment()">
+            <span>💬 发送一条评论</span>
+            <span id="comment-count">7 评论</span>
+        </div>
+    </div>
+
+    <script>
+        // 获取当前日期和时间
+        const currentDate = new Date();
+        const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
+        document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
+        document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
+
+        // 获取“一言”内容并显示
+        fetch('https://tenapi.cn/v2/yiyan')
+            。then(response => response.json())
+            。then(data => {
+                document.getElementById('yiyan-message').innerText = data.content;
+            })
+            。catch(error => {
+                document.getElementById('yiyan-message').innerText = '无法加载一言';
+                console.error('获取一言出错:', error);
+            });
+
+        function showNoComment() {
+            document.getElementById('comment-count').innerText = '无';
+        }
+    </script>
+</body>
+</html>
