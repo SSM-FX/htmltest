@@ -20,7 +20,8 @@
         }
 
         .container {
-            width: 400px;
+            max-width: 400px;
+            width: 100%;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -96,7 +97,7 @@
         }
 
         .highlight-text {
-            font-size: 1em; /* 调整为更小的字体 */
+            font-size: 1em;
             font-weight: normal;
             color: black;
         }
@@ -120,6 +121,10 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+        }
+
+        .comments:hover {
+            color: #0056b3;
         }
 
         .comments span {
@@ -150,7 +155,7 @@
             </div>
         </div>
 
-        <div class="comments" onclick="showNoComment()">
+        <div class="comments" onclick="fetchHitokoto()">
             <span>💬 发送一条评论</span>
             <span id="comment-count"> 评论</span>
         </div>
@@ -160,10 +165,22 @@
         const currentDate = new Date();
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
-        document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
 
-        function showNoComment() {
-            document.getElementById('comment-count').innerText = '无';
+        function updateTime() {
+            document.getElementById('current-time').innerText = new Date().toLocaleTimeString('zh-CN');
+        }
+        setInterval(updateTime, 1000);  // 每秒更新一次时间
+
+        function fetchHitokoto() {
+            fetch('https://v1.hitokoto.cn/?encode=text')
+                。then(response => response.text())
+                。then(data => {
+                    document.getElementById('comment-count').innerText = data;
+                })
+                。catch(error => {
+                    console.error('获取一言失败:', error);
+                    document.getElementById('comment-count').innerText = '获取失败';
+                });
         }
     </script>
 </body>
