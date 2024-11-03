@@ -166,13 +166,13 @@
         document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
 
         // 获取“一言”内容并显示
-        fetch('https://v1.hitokoto.cn/?encode=text')
+        fetch('https://v1.hitokoto.cn/?encode=text', { mode: 'cors' })
             。then(response => response.json())
             。then(data => {
                 document.getElementById('yiyan-message').innerText = data.content;
             })
             。catch(error => {
-                document.getElementById('yiyan-message').innerText = '无法加载一言';
+                document.getElementById('yiyan-message').innerText = '保持微笑，生活会更美好';
                 console.error('获取一言出错:', error);
             });
 
