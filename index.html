@@ -96,7 +96,7 @@
         }
 
         .highlight-text {
-            font-size: 1em; /* 调整为更小的字体 */
+            font-size: 1em;
             font-weight: normal;
             color: black;
         }
@@ -150,9 +150,9 @@
             </div>
         </div>
 
-        <div class="comments" onclick="showNoComment()">
+        <div class="comments">
             <span>💬 评论</span>
-            <span id="comment-count"> 评论</span>
+            <span id="comment-count"> 无</span>
         </div>
     </div>
 
@@ -162,7 +162,7 @@
         document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
         document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
 
-        async function showNoComment() {
+        async function fetchComment() {
             try {
                 const response = await fetch('https://v1.hitokoto.cn/?encode=text');
                 const text = await response.text();
@@ -172,6 +172,12 @@
                 document.getElementById('comment-count').innerText = '无';
             }
         }
+
+        // 定时每5秒刷新一次评论内容
+        setInterval(fetchComment, 5000);
+        
+        // 页面加载时首次调用
+        fetchComment();
     </script>
 </body>
 </html>
