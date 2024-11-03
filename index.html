@@ -37,8 +37,8 @@
 
         /* 心形头像 */
         .heart-icon {
-            width: 23px;
-            height: 23px;
+            width: 23px; /* 修改这里 */
+            height: 23px; /* 修改这里 */
             position: relative;
             animation: heartbeat 1s infinite;
             background-color: #ff6b6b;
@@ -50,20 +50,20 @@
         .heart-icon::before,
         .heart-icon::after {
             content: "";
-            width: 23px;
-            height: 23px;
+            width: 23px; /* 修改这里 */
+            height: 23px; /* 修改这里 */
             border-radius: 50%;
             background-color: #ff6b6b;
             position: absolute;
         }
 
         .heart-icon::before {
-            top: -11.5px;
+            top: -11.5px; /* 修改这里 */
             left: 0;
         }
 
         .heart-icon::after {
-            left: 11.5px;
+            left: 11.5px; /* 修改这里 */
             top: 0;
         }
 
@@ -136,9 +136,9 @@
             </div>
         </div>
         
-        <!-- 消息内容（动态获取“一言”） -->
-        <div class="message" id="yiyan-message">
-            加载中...
+        <!-- 消息内容（替换成文字“你好”） -->
+        <div class="message">
+            你好
         </div>
 
         <!-- 日期 -->
@@ -164,17 +164,6 @@
         const options = { year: 'numeric', month: 'numeric', day: 'numeric' };
         document.getElementById('current-date').innerText = currentDate.toLocaleDateString('zh-CN', options);
         document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
-
-        // 获取“一言”内容并显示
-        fetch('https://v1.hitokoto.cn/?encode=text', { mode: 'cors' })
-            。then(response => response.json())
-            。then(data => {
-                document.getElementById('yiyan-message').innerText = data.content;
-            })
-            。catch(error => {
-                document.getElementById('yiyan-message').innerText = '保持微笑，生活会更美好';
-                console.error('获取一言出错:', error);
-            });
 
         function showNoComment() {
             document.getElementById('comment-count').innerText = '无';
