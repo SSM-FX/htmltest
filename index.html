@@ -166,7 +166,7 @@
         document.getElementById('current-time').innerText = currentDate.toLocaleTimeString('zh-CN');
 
         // 获取“一言”内容并显示
-        fetch('https://tenapi.cn/v2/yiyan')
+        fetch('https://v1.hitokoto.cn/?encode=text')
             。then(response => response.json())
             。then(data => {
                 document.getElementById('yiyan-message').innerText = data.content;
